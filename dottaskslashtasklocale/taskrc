@@ -9,5 +9,8 @@ include ~/.task/tasklocale/epo-RUS/taskrc
 # Honor any settings in the user's .taskrc file.
 include ~/.taskrc
 
+# Disable abbreviations, since Taskwarrior's support for them is mostly limited to English anyway.
+abbreviation.minimum=99
+
 # Header messages are suppressed in order to avoid constantly mentioning that we're using this alternate taskrc file.
 verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,unwait,recur
