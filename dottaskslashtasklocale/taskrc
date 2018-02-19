@@ -6,9 +6,6 @@
 #include $TASKLOCALE_LANGUAGE/taskrc
 include ~/.task/tasklocale/epo-RUS/taskrc
 
-# Honor any settings in the user's .taskrc file.
-include ~/.taskrc
-
 # Disable abbreviations, since Taskwarrior's support for them is mostly limited to English anyway.
 abbreviation.minimum=99
 
