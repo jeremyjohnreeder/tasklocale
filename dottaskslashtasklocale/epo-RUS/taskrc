@@ -1,0 +1,58 @@
+# epo-RUS/taskrc — a Taskwarrior RC file for use with the Esperanto language
+
+# komandoj modifantaj
+alias.agordu=config
+alias.aldonu=append
+alias.eku=start
+alias.finu=done
+alias.viŝu=delete
+alias.visxu=delete
+alias.haltu=stop
+alias.komentu=annotate
+alias.kopiu=duplicate
+alias.kreu=add
+alias.malfaru=undo
+alias.modifu=modify
+alias.montru=show
+alias.predonu=prepend
+alias.redaktu=edit
+alias.registru=log
+alias.sinkronigu=synchronize
+alias.ŝelo=shell
+alias.sxelo=shell
+alias.malkomentu=denotate
+
+# raportoj
+alias.aktivaj=active
+alias.atendantaj=waiting
+alias.blokantaj=blocking
+alias.blokataj=blocked
+alias.ĉia=all
+alias.cxia=all
+alias.finitaj=completed
+alias.informoj=information
+alias.malnovaj=oldest
+alias.neblokataj=unblocked
+alias.nombru=count
+alias.novaj=newest
+alias.pretaj=ready
+alias.projektoj=projects
+alias.proksimaj=next
+alias.raportoj=reports
+alias.versio=version
+
+# aliaj komandoj informantaj
+alias.brulo.monata=rc.detection:off rc.verbose=off burndown.monthly
+alias.brulo.semajna=rc.detection:off rc.verbose=off burndown.weekly
+alias.brulo.taga=rc.detection:off rc.verbose=off burndown.daily
+alias.brulo=rc.detection:off rc.verbose=off burndown.daily
+alias.identigoj=ids
+alias.kalendaro=calendar
+alias.koloroj=colors
+alias.kolumnoj=columns
+alias.resumo=summary
+
+# aliaj agordoj
+nag=Vi havas pliurĝajn taskojn.
+# Se la uzo de Esperanta simbolo anstataŭ asterisko amuzas vin, malkomentu la sekvantan agordon.
+#active.indicator=★

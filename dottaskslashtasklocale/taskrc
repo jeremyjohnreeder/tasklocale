@@ -1,0 +1,13 @@
+# Alternative taskrc file for use with TaskLocale
+
+# Localized command aliases and display configuration
+# Change the ISO 639-2 language reference to the language of your choosing. A subdirectory must exist for it, containing TaskLocale configuration files.
+# It's too bad environment variables can't be automatically expanded. :/
+#include $TASKLOCALE_LANGUAGE/taskrc
+include ~/.task/tasklocale/epo-RUS/taskrc
+
+# Honor any settings in the user's .taskrc file.
+include ~/.taskrc
+
+# Header messages are suppressed in order to avoid constantly mentioning that we're using this alternate taskrc file.
+verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,unwait,recur

@@ -1,0 +1,72 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# TaskLocale: A localized wrapper for Taskwarrior, ©2018 Jeremy John Reeder
+
+import os, re, sys
+#from pathlib2 import Path
+from subprocess import call, PIPE, Popen
+
+def _commands():
+    print 'unimplemented'
+
+lazy_column_dictionary={}
+def get_column_dictionary():
+    if len(lazy_column_dictionary)==0:
+        language=os.environ['TASKLOCALE_LANGUAGE']
+        language!='' or sys.exit('Error: TASKLOCALE_LANGUAGE environment variable is not set.')
+        local_column_file=os.environ['HOME']+'/.task/'+os.environ['language']+'/columns'
+        with open(local_column_file, 'r') as f:
+            for line in f:
+                (key,val)=line.rstrip().split('\t')
+                lazy_column_dictionary[key]=val
+    return lazy_column_dictionary
+
+lazy_columns={}
+def get_columns():
+    global lazy_columns
+    if len(lazy_columns)==0:
+        column_dictionary=get_column_dictionary()
+        proc=Popen(['task', '_columns'], stdout=PIPE)
+        out=proc.communicate()[0]
+        proc.returncode==0 or sys.exit('Failed to get list of column names from Taskwarrior.')
+        canonical_columns=set(out.rstrip().split('\n'))
+        lazy_columns=(canonical_columns-set(column_dictionary.values())).union(set(column_dictionary.keys()))
+    return lazy_columns
+
+def _columns():
+    for column in get_columns():
+        print column
+
+commands={'_commands':_commands, '_columns':_columns}
+
+def create_configuration_symlink_if_needed():
+    try:
+        f=open(os.environ['HOME']+'/.task/tasklocale/taskrc', 'r')
+        f.close
+    except:
+        if os.path.exists(os.environ['HOME']+'/.task/tasklocale'):
+            sys.exit('Whoa! You have an invalid TaskLocale configuration at /.task/tasklocale.')
+        else:
+            print 'TaskLocale configuration directory does not yet exist at ~/.task/tasklocale. Creating it now, as a symbolic link.'
+            sys.exit("On second thought, I haven't implemented that correctly yet. Eek!")
+            # The following should have the absolute directory path to the tasklocale script, not the absolute file path.
+            proc=Popen(['ln', '-s', os.path.abspath(sys.argv[0])+'/dottaskslashtasklocale', os.environ['HOME']+'/.task/tasklocale'], stdout=PIPE)
+            proc.returncode==0 or sys.exit('Failed to create link.')
+
+create_configuration_symlink_if_needed()
+if len(sys.argv)==2 and sys.argv[1] in commands:
+    # execute a localized underscore-prefixed command for autocompletion
+    commands[sys.argv[1]]()
+else: # canonicalize the localized input and pass it to Taskwarrior
+    argv=sys.argv # take the original command
+    argv[0]='task' # reässign the command to Taskwarrior
+    operator_pattern=re.compile(r'[:<=>!~]') # regex for column-comparison operator
+    for i in range(1, len(argv)):
+        if argv[i]=='--': # double dash escapes remainder of command, forcing interepretation as description text
+            break; # pass the remainder of the command verbatim
+        if operator_pattern.search(argv[i]): # comparison operator found, so interpret text as column name
+            dictionary = get_column_dictionary()
+            for (local,canonical) in dictionary.items(): # canonicalize columns
+                argv[i]=re.sub(re.compile('(?<!\w)'+local+'(?!\w)'), canonical, argv[i])
+    argv.insert(1,'rc:~/.task/tasklocale/taskrc')
+    call(argv)
