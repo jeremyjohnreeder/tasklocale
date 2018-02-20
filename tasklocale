@@ -68,5 +68,4 @@ else: # canonicalize the localized input and pass it to Taskwarrior
             dictionary = get_column_dictionary()
             for (local,canonical) in dictionary.items(): # canonicalize columns
                 argv[i]=re.sub(re.compile('(?<!\w)'+local+'(?!\w)'), canonical, argv[i])
-    argv.insert(1,'rc:~/.task/tasklocale/taskrc')
     call(argv)
