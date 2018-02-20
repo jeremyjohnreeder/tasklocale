@@ -2,14 +2,19 @@
 
 NOTE: These steps assume that ~/bin is included within your PATH environment variable.
 
-1. Execute the following commands:
+1. Compile Taskwarrior for your language of choice. Besides English, it supports German, Russian, French, Japanese, Portuguese, Spanish, Italian, and Polish.
+
+2. Execute the following commands:
 	cp -R dottaskslashtasklocale ~/.task/tasklocale
 	cp tasklocale ~/bin
 
-2. Edit ~/.task/tasklocale/taskrc, changing the default language reference (epo-RUS) to the language reference of your choice.
+3. Edit ~/.task/tasklocale/taskrc, changing the default language reference (epo-RUS) to the language reference of your choice. The only language currently supported is Esperanto.
 
-3. Edit ~/.taskrc, adding the following line:
+4. Edit ~/.taskrc, adding the following line:
 	include ~/.task/tasklocale/taskrc
+
+5. Create a symbolic link for your language's word for "task", if you like.
+	Esperanto: ln -s tasklocale ~/bin/tasko
 
 
 == How to Use TaskLocale ==
