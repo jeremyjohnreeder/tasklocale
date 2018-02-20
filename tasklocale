@@ -7,12 +7,17 @@ import os, re, sys
 from subprocess import call, PIPE, Popen
 
 def _commands():
-    print 'unimplemented'
+    # TaskLocale's commands are implemented as Taskwarrior aliases, so we ask Taskwarrior to list its aliases.
+    call(['task', '_aliases'])
+
+def _aliases():
+    # TaskLocale considers all of its aliases to be commands, so listing aliases her would be redundant.
+    pass
 
 lazy_column_dictionary={}
 def get_column_dictionary():
     if len(lazy_column_dictionary)==0:
-        local_column_file=os.environ['HOME']+'/.task/locale/columns'
+        local_column_file=os.environ['HOME']+'/.task/tasklocale/locale/columns'
         with open(local_column_file, 'r') as f:
             for line in f:
                 (key,val)=line.rstrip().split('\t')
@@ -21,6 +26,7 @@ def get_column_dictionary():
 
 lazy_columns={}
 def get_columns():
+    # Here we list all TaskLocale column-name translations, as well as any untranslated built-in Taskwarrior columns and UDAs. We also include translations of months, days, and other time and period references contained in our "columns" file, because Taskwarrior has no underscore-prefixed command intended for autocompletion of these references, and they're roughly equivalent to column names in the way they're used on the command line.
     global lazy_columns
     if len(lazy_columns)==0:
         column_dictionary=get_column_dictionary()
@@ -35,7 +41,7 @@ def _columns():
     for column in get_columns():
         print column
 
-commands={'_commands':_commands, '_columns':_columns}
+commands={'_commands':_commands, '_aliases':_aliases, '_columns':_columns}
 
 def create_configuration_symlink_if_needed():
     try:

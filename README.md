@@ -8,7 +8,7 @@ NOTE: These steps assume that ~/bin is included within your PATH environment var
 	cp -R dottaskslashtasklocale ~/.task/tasklocale
 	cp tasklocale ~/bin
 
-3. Create a symbolic link to your language of choice, e.g. epo-RUS.
+3. Create a symbolic link to your language of choice, such as epo-RUS.
 	ln -s epo-RUS ~/.task/tasklocale/locale
 
 4. Edit ~/.taskrc, adding the following line:
@@ -20,8 +20,21 @@ NOTE: These steps assume that ~/bin is included within your PATH environment var
 
 == How to Use TaskLocale ==
 
-TaskLocale is merely a localization wrapper for Taskwarrior, so usage is the same as using Taskwarrior, except that inputs are understood in your own language.
+TaskLocale is merely a localization wrapper for Taskwarrior, so usage is the same as using Taskwarrior, except that inputs are understood in your own language. More specifically, localized equivalents of the following are understood:
+	- commands
+	- column names
+	- month names and standard abbreviations
+	- day names and standard abbreviations
+	- miscellaneous time references:
+		- now
+		- tomorrow
+		- easter
+		- someday
+	- true and false
+	- yes and no
 
-To see localized list of commands, column names, and date references, run the following commands:
-	task _aliases
+Localized equivalents of time-period references such as "2wk" are not supported. ISO-8601 time-period references such as "P2W" are recommended.
+
+To see a list of supported commands, columns, and time references in your language of choice, run the following commands:
+	tasklocale _commands
 	tasklocale _columns
