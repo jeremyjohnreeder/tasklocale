@@ -12,9 +12,7 @@ def _commands():
 lazy_column_dictionary={}
 def get_column_dictionary():
     if len(lazy_column_dictionary)==0:
-        language=os.environ['TASKLOCALE_LANGUAGE']
-        language!='' or sys.exit('Error: TASKLOCALE_LANGUAGE environment variable is not set.')
-        local_column_file=os.environ['HOME']+'/.task/'+os.environ['language']+'/columns'
+        local_column_file=os.environ['HOME']+'/.task/locale/columns'
         with open(local_column_file, 'r') as f:
             for line in f:
                 (key,val)=line.rstrip().split('\t')

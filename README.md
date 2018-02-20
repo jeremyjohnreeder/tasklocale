@@ -8,7 +8,8 @@ NOTE: These steps assume that ~/bin is included within your PATH environment var
 	cp -R dottaskslashtasklocale ~/.task/tasklocale
 	cp tasklocale ~/bin
 
-3. Edit ~/.task/tasklocale/taskrc, changing the default language reference (epo-RUS) to the language reference of your choice. The only language currently supported is Esperanto.
+3. Create a symbolic link to your language of choice, e.g. epo-RUS.
+	ln -s epo-RUS ~/.task/tasklocale/locale
 
 4. Edit ~/.taskrc, adding the following line:
 	include ~/.task/tasklocale/taskrc

@@ -3,7 +3,7 @@
 # Localized command aliases and display configuration
 # Change the ISO 639-2 language reference to the language of your choosing.
 # The directory must exist, of course, and contain TaskLocale configuration files.
-include ~/.task/tasklocale/epo-RUS/taskrc
+include ~/.task/tasklocale/locale/taskrc
 
 # Disable abbreviations, since Taskwarrior's support for them is mostly limited to English anyway.
 abbreviation.minimum=99
