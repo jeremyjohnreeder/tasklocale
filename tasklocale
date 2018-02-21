@@ -14,6 +14,15 @@ def _aliases():
     # TaskLocale considers all of its aliases to be commands, so listing aliases her would be redundant.
     pass
 
+def _zshcommands():
+    # Let's have Taskwarrior list its commands with descriptions, then append TaskLocale's commands without descriptions. That's good enough for now, as it makes all of the commands usable with tab-completion. In the future, let's describe TaskLocale's commands appropriately and remove from the list any built-in Taskwarrior commands that have been replaced by TaskLocale commands.
+    call(['task', '_zshcommands'])
+    proc=Popen(['tasklocale', '_commands'], stdout=PIPE)
+    out=proc.communicate()[0]
+    localized_commands=out.rstrip().split('\n')
+    for command in localized_commands:
+        print command+'::'
+
 lazy_column_dictionary={}
 def get_column_dictionary():
     if len(lazy_column_dictionary)==0:
@@ -41,7 +50,17 @@ def _columns():
     for column in get_columns():
         print column
 
-commands={'_commands':_commands, '_aliases':_aliases, '_columns':_columns}
+def _zshattributes():
+    for column in get_columns():
+        print column+':'+column
+
+commands={
+    '_commands': _commands,
+    '_aliases': _aliases,
+    '_columns': _columns,
+    '_zshattributes': _zshattributes,
+    '_zshcommands': _zshcommands
+}
 
 def create_configuration_symlink_if_needed():
     try:
